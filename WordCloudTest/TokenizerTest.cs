@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using WordCloudMVVM.Model.WordParse.Clean;
@@ -24,7 +23,7 @@ namespace WordCloudTest
         public void Text_Tokenize_AllWord()
         {
             string text = "которые,  свойственны  .состаревшемуся  в,  свете  и . при  дворе  ,значительному человеку";
-            IEnumerable<string> actualWord = mTokenizer.Tokenize(text);
+            var actualWord = mTokenizer.Tokenize(text);
             string[] exceptWord = new[] { "которые", "свойственны", "состаревшемуся", "в", "свете", "и", "при", "дворе", "значительному", "человеку" };
             Assert.IsTrue(exceptWord.All(word => actualWord.Contains(word)));
         }

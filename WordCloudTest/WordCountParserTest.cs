@@ -42,7 +42,7 @@ namespace WordCloudTest
             string newLine = Environment.NewLine;
             string textNewLineWord = $"свойственны{newLine}состаревшемуся{newLine}дворе{newLine}свете{newLine}и{newLine}при{newLine}дворе";
 
-            IEnumerable<WordWeight> wordWeightEnum = mParser.Parse(textNewLineWord);
+            var wordWeightEnum = mParser.Parse(textNewLineWord);
             var except = new WordWeight("свойственный", 1);
             var actual = wordWeightEnum.First(wordWeight => wordWeight.Say == "свойственный");
             Assert.AreEqual(except.Say, actual.Say);
@@ -62,7 +62,7 @@ namespace WordCloudTest
         {
             string newLine = Environment.NewLine;
             string textNewLineWord = $"свойственны{newLine}состаревшемуся{newLine}дворе{newLine}свете{newLine}и{newLine}при{newLine}дворе";
-            IEnumerable<WordWeight> wordWeightEnum = mParser.Parse(textNewLineWord);
+            var wordWeightEnum = mParser.Parse(textNewLineWord);
             var actualCount = wordWeightEnum.Count();
             Assert.AreEqual(6, actualCount);
         }
@@ -72,7 +72,7 @@ namespace WordCloudTest
         {
             string literText = $"которые,./[]  свойственны 1234567890-=<>?:  ;',.состаревшемуся  @&%(дворе  свете !@#$%^&*( + )()!и  при  дворе";
 
-            IEnumerable<WordWeight> wordWeightEnum = mParser.Parse(literText);
+            var wordWeightEnum = mParser.Parse(literText);
             var actualCount = wordWeightEnum.Count();
             Assert.AreEqual(6, actualCount);
         }
@@ -81,7 +81,7 @@ namespace WordCloudTest
         public void TextLiterature_Parse_CorrectEnumWordWeight()
         {
             string literText = $"которые,./[]  свойственны 1234567890-=<>?:  ;',.состаревшемуся  @&%(дворе  свете !@#$%^&*( + )()!и  при  дворе";
-            IEnumerable<WordWeight> wordWeightEnum = mParser.Parse(literText);
+            var wordWeightEnum = mParser.Parse(literText);
             var except = new WordWeight("свойственный", 1);
             var actual = wordWeightEnum.First(wordWeight => wordWeight.Say == "свойственный");
             Assert.AreEqual(except.Say, actual.Say);

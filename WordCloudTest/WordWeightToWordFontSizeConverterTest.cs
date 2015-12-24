@@ -26,8 +26,8 @@ namespace WordCloudTest
                 new WordWeight("машина", 1),
             };
             const int maxFontSize = 40;
-            IEnumerable<WordFontSize> actualWordsFontSize = WordWeightToWordStyleConverter.Convert(wordsWeight, maxFontSize);
-            IEnumerable<WordFontSize> exceptWordsFontSize = new List<WordFontSize>
+            var actualWordsFontSize = WordWeightToWordStyleConverter.Convert(wordsWeight, maxFontSize);
+            var exceptWordsFontSize = new List<WordFontSize>
             {
                 new WordFontSize("пошел", 13),
                 new WordFontSize("сегодня", 1),

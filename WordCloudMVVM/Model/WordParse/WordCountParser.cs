@@ -24,7 +24,7 @@ namespace WordCloudMVVM
                 .ToArray();
         }
 
-        public HashSet<string> GetAllUniqueWords(IEnumerable<string> words) =>
+        public HashSet<string> GetAllUniqueWords(IReadOnlyCollection<string> words) =>
             new HashSet<string>(words);
 
         public WordCountParser(ITokenizer tokenizer)

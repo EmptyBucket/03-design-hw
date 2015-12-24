@@ -6,7 +6,7 @@ namespace WordCloudMVVM.Model.Cloud.BuildCloud.Intersection
 {
     public class IntersectionChecker : IIntersectionChecker
     {
-        public bool CheckIntersection(Geometry currentGeometry, IEnumerable<Geometry> geometryEnum) =>
+        public bool CheckIntersection(Geometry currentGeometry, IReadOnlyCollection<Geometry> geometryEnum) =>
             geometryEnum.Any(geometry => currentGeometry.FillContainsWithDetail(geometry) != IntersectionDetail.Empty);
     }
 }

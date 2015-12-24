@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,8 +31,8 @@ namespace WordCloudTest
         [TestMethod]
         public void Text_GetAllPrimaryWord_PrimaryWord()
         {
-            IEnumerable<string> exceptWord = new[] { "свойственный", "свет", "двор" };
-            IEnumerable<string> actualWord = mStemTokenizer.Tokenize(mText);
+            var exceptWord = new[] { "свойственный", "свет", "двор" };
+            var actualWord = mStemTokenizer.Tokenize(mText);
             Assert.IsTrue(exceptWord.All(word => actualWord.Contains(word)));
         }
     }
