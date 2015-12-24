@@ -45,9 +45,11 @@ namespace WordCloudMVVM.ViewModel
                 string text = mTextReader.ReadAll(mPathTextFile);
                 WordWeight[] wordsWeight = mWordParser.Parse(text).ToArray();
                 mGoodWord = wordsWeight
-                    .Where(word => !mWordInspector.IsBad(word.Say));
+                    .Where(word => !mWordInspector.IsBad(word.Say))
+                    .ToList();
                 mBadWord = wordsWeight
-                    .Where(word => mWordInspector.IsBad(word.Say));
+                    .Where(word => mWordInspector.IsBad(word.Say))
+                    .ToList();
                 GoodWordCollection = new ObservableCollection<WordModelView>(
                     WordWeightToWordStyleConverter.Convert(mGoodWord, MaxFontSize)
                     .Select(word => new WordModelView(word.Say, word.FontSize, word.Color, true)));
@@ -67,9 +69,10 @@ namespace WordCloudMVVM.ViewModel
             button.IsEnabled = false;
             await Task.Run(() =>
             {
-                IEnumerable<WordStyle> wordFontSizeList = GoodWordCollection.Concat(BadWordCollection)
+                var wordFontSizeList = GoodWordCollection.Concat(BadWordCollection)
                     .Where(wordIsActive => wordIsActive.Active)
-                    .Select(word => new WordStyle(word.Say, word.FontSize, word.Color));
+                    .Select(word => new WordStyle(word.Say, word.FontSize, word.Color))
+                    .ToArray();
                 DrawingImage drawImage = mCloudPaninter.DrawCloudWord(wordFontSizeList, SizeWidth, SizeHeight, MaxFontSize);
                 drawImage.Freeze();
                 BitmapImage = drawImage;
@@ -185,8 +188,8 @@ namespace WordCloudMVVM.ViewModel
         private readonly IWordWeightParser mWordParser;
         private readonly IWordInspector mWordInspector;
         private readonly ICloudPainter mCloudPaninter;
-        private IEnumerable<WordWeight> mGoodWord = new List<WordWeight>();
-        private IEnumerable<WordWeight> mBadWord = new List<WordWeight>();
+        private IReadOnlyCollection<WordWeight> mGoodWord = new List<WordWeight>();
+        private IReadOnlyCollection<WordWeight> mBadWord = new List<WordWeight>();
         private ITextReader mTextReader;
 
         private bool mIndeterminateOpen = false;

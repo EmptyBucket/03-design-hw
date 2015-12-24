@@ -8,7 +8,7 @@ namespace WordCloudMVVM
     {
         private readonly ITokenizer mTokenizer;
 
-        public IEnumerable<WordWeight> Parse(string text)
+        public WordWeight[] Parse(string text)
         {
             string[] primaryWords = mTokenizer.Tokenize(text).ToArray();
             HashSet<string> uniquePrimaryWords = GetAllUniqueWords(primaryWords);
@@ -20,7 +20,8 @@ namespace WordCloudMVVM
                 dictCountUniqueWords[item]++;
 
             return dictCountUniqueWords
-                .Select(CountWord => new WordWeight(CountWord.Key, CountWord.Value));
+                .Select(CountWord => new WordWeight(CountWord.Key, CountWord.Value))
+                .ToArray();
         }
 
         public HashSet<string> GetAllUniqueWords(IEnumerable<string> words) =>

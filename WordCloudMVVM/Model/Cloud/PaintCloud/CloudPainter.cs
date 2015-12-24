@@ -22,7 +22,7 @@ namespace WordCloudMVVM.Model
             return new DrawingImage(visual.Drawing);
         }
 
-        public DrawingImage DrawCloudWord(IEnumerable<WordStyle> words, int imageWidht, int imageHeight, int maxFont) =>
+        public DrawingImage DrawCloudWord(IReadOnlyCollection<WordStyle> words, int imageWidht, int imageHeight, int maxFont) =>
             DrawingImage(mCloudPainter.BuildWordsGeometry(words, imageWidht, imageHeight, maxFont));
     }
 }

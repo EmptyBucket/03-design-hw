@@ -5,6 +5,6 @@ namespace WordCloudMVVM.Model
 {
     public interface ICloudPainter
     {
-        DrawingImage DrawCloudWord(IEnumerable<WordStyle> words, int imageWidht, int imageHeight, int maxFont);
+        DrawingImage DrawCloudWord(IReadOnlyCollection<WordStyle> words, int imageWidht, int imageHeight, int maxFont);
     }
 }

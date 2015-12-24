@@ -7,7 +7,6 @@ using Moq;
 using NHunspell;
 using WordCloudMVVM;
 using WordCloudMVVM.Model.WordParse;
-using WordCloudMVVM.Model.WordParse.Clean;
 
 namespace WordCloudTest
 {
@@ -19,11 +18,10 @@ namespace WordCloudTest
 
         public WordCountParserTest()
         {
-            //не знаю, как в данной ситуации использовать moq
             string pathHunspellDict = Path.Combine(Environment.CurrentDirectory, "HunspellDictionary", "ru_RU.dic");
             string pathHunspellAff = Path.Combine(Environment.CurrentDirectory, "HunspellDictionary", "ru_RU.aff");
             mHunspell = new Hunspell(pathHunspellAff, pathHunspellDict);
-            IEnumerable<string> exceptedTokenize = new List<string>
+            var exceptedTokenize = new string[]
             {
                 "свойственный",
                 "состаревшемуся",

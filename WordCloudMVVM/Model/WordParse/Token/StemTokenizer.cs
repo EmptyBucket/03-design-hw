@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using NHunspell;
 using WordCloudMVVM.Model.WordParse.Clean;
@@ -11,9 +10,10 @@ namespace WordCloudMVVM.Model.WordParse
     {
         private readonly Hunspell mHunspell;
 
-        public override IEnumerable<string> Tokenize(string text) =>
+        public override string[] Tokenize(string text) =>
             base.Tokenize(text)
-                .Select(word => mHunspell.Stem(word).FirstOrDefault() ?? word);
+                .Select(word => mHunspell.Stem(word).FirstOrDefault() ?? word)
+                .ToArray();
 
         public StemTokenizer(ICleaner cleaner, Hunspell hunspell) : base(cleaner)
         {

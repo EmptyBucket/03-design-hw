@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using WordCloudMVVM.Model.WordParse.Clean;
 
 namespace WordCloudMVVM.Model.WordParse.Token
@@ -8,7 +7,7 @@ namespace WordCloudMVVM.Model.WordParse.Token
     {
         private readonly ICleaner mCleaner;
 
-        public virtual IEnumerable<string> Tokenize(string text)
+        public virtual string[] Tokenize(string text)
         {
             return mCleaner
                 .Clean(text)

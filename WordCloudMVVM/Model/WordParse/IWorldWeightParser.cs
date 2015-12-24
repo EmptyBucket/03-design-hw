@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace WordCloudMVVM
+﻿namespace WordCloudMVVM
 {
     public interface IWordWeightParser
     {
-        IEnumerable<WordWeight> Parse(string text);
+        WordWeight[] Parse(string text);
     }
 }

@@ -13,7 +13,7 @@ namespace WordCloudTest
         [TestMethod]
         public void WordsWeight_Convert_CorrectWordsFontSize()
         {
-            IEnumerable<WordWeight> wordsWeight = new List<WordWeight>
+            var wordsWeight = new List<WordWeight>
             {
                 new WordWeight("пошел", 12),
                 new WordWeight("сегодня", 1),

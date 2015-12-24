@@ -15,7 +15,7 @@ namespace WordCloudMVVM.Model.Cloud.BuildCloud
             mIntersectionChecher = intersectionChecher;
         }
 
-        public Dictionary<WordStyle, Geometry> BuildWordsGeometry(IEnumerable<WordStyle> words, int imageWidth, int imageHeight, int maxFont)
+        public Dictionary<WordStyle, Geometry> BuildWordsGeometry(IReadOnlyCollection<WordStyle> words, int imageWidth, int imageHeight, int maxFont)
         {
             var sortWords = words.OrderByDescending(word => word.FontSize);
 

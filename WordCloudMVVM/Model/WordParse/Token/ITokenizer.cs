@@ -4,6 +4,6 @@ namespace WordCloudMVVM.Model.WordParse
 {
     public interface ITokenizer
     {
-        IEnumerable<string> Tokenize(string text);
+        string[] Tokenize(string text);
     }
 }
