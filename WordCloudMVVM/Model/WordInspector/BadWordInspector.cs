@@ -6,23 +6,23 @@ namespace WordCloudMVVM.Model.WordInspector
 {
     public class BadWordInspector : IWordInspector
     {
-        private readonly HashSet<string> mBadWords;
+        private readonly HashSet<string> _badWords;
 
         public BadWordInspector(Stream stream)
         {
-            using (StreamReader reader = new StreamReader(stream))
-                mBadWords = new HashSet<string>(
+            using (var reader = new StreamReader(stream))
+                _badWords = new HashSet<string>(
                     reader
                     .ReadToEnd()
-                    .Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+                    .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
         }
 
         public BadWordInspector(string path)
         {
-            mBadWords = new HashSet<string>(File.ReadAllLines(path));
+            _badWords = new HashSet<string>(File.ReadAllLines(path));
         }
 
         public bool IsBad(string word) =>
-            mBadWords.Contains(word);
+            _badWords.Contains(word);
     }
 }

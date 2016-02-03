@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace WordCloudMVVM.Model
+namespace WordCloudMVVM.Model.Word
 {
     public class WordModelView
     {

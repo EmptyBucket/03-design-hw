@@ -3,27 +3,27 @@ using System.Text;
 
 namespace WordCloudMVVM.Model.Read
 {
-    public class TXTReader : ITextReader
+    public class TxtReader : ITextReader
     {
-        private readonly Encoding mEncoding;
+        private readonly Encoding _encoding;
 
         public string ReadAll(Stream stream)
         {
-            using (StreamReader reader = new StreamReader(stream, mEncoding))
+            using (var reader = new StreamReader(stream, _encoding))
                 return reader.ReadToEnd();
         }
 
         public string ReadAll(string path) =>
             File.ReadAllText(path);
 
-        public TXTReader(Encoding encoding)
+        public TxtReader(Encoding encoding)
         {
-            mEncoding = encoding;
+            _encoding = encoding;
         }
 
-        public TXTReader()
+        public TxtReader()
         {
-            mEncoding = Encoding.ASCII;
+            _encoding = Encoding.ASCII;
         }
     }
 }

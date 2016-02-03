@@ -20,7 +20,7 @@
   </Window.Resources>
 
   <Border Opacity="{Binding ElementName=SliderOpacity, Path=Value}" Background="Transparent">
-    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+    <Grid MouseLeftButtonDown="Grid_ouseLeftButtonDown">
       <ContentControl Content="{StaticResource CloudIcon}"/>
       <Button Click="Button_Click" Style="{StaticResource ButtonExitStyle}" Margin="467,12,200,415" Height="Auto" Width="Auto"/>
       <Grid Margin="15,210,645,124">
@@ -170,7 +170,7 @@
               <ContentControl.Triggers>
                 <EventTrigger RoutedEvent="MouseEnter">
                   <BeginStoryboard>
-                    <Storyboard TargetName="border">
+                    <Storyboard TargetName="Border">
                       <Int32Animation Storyboard.TargetProperty="(Panel.ZIndex)" To="2" SpeedRatio="10"/>
                       <DoubleAnimation To="2.57" Storyboard.TargetProperty="RenderTransform.Children[0].ScaleX">
                         <DoubleAnimation.EasingFunction>
@@ -197,7 +197,7 @@
                 </EventTrigger>
               </ContentControl.Triggers>
             </ContentControl>
-            <Border Name="border" Background="White" CornerRadius="10" Margin="1">
+            <Border Name="Border" Background="White" CornerRadius="10" Margin="1">
               <Border.RenderTransform>
                 <TransformGroup>
                   <ScaleTransform ScaleX="1" ScaleY="1"/>

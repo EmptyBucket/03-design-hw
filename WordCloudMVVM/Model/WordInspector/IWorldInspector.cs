@@ -1,4 +1,4 @@
-﻿namespace WordCloudMVVM
+﻿namespace WordCloudMVVM.Model.WordInspector
 {
     public interface IWordInspector
     {

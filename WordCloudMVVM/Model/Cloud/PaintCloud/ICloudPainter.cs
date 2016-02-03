@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
+using WordCloudMVVM.Model.Word;
 
-namespace WordCloudMVVM.Model
+namespace WordCloudMVVM.Model.Cloud.PaintCloud
 {
     public interface ICloudPainter
     {

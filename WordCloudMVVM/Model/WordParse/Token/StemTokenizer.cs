@@ -2,25 +2,24 @@
 using System.Linq;
 using NHunspell;
 using WordCloudMVVM.Model.WordParse.Clean;
-using WordCloudMVVM.Model.WordParse.Token;
 
-namespace WordCloudMVVM.Model.WordParse
+namespace WordCloudMVVM.Model.WordParse.Token
 {
     public class StemTokenizer : Tokenizer, IDisposable
     {
-        private readonly Hunspell mHunspell;
+        private readonly Hunspell _hunspell;
 
         public override string[] Tokenize(string text) =>
             base.Tokenize(text)
-                .Select(word => mHunspell.Stem(word).FirstOrDefault() ?? word)
+                .Select(word => _hunspell.Stem(word).FirstOrDefault() ?? word)
                 .ToArray();
 
         public StemTokenizer(ICleaner cleaner, Hunspell hunspell) : base(cleaner)
         {
-            mHunspell = hunspell;
+            _hunspell = hunspell;
         }
 
         public void Dispose() =>
-            mHunspell.Dispose();
+            _hunspell.Dispose();
     }
 }

@@ -5,18 +5,18 @@ namespace WordCloudMVVM.Model.WordParse.Token
 {
     public class Tokenizer : ITokenizer
     {
-        private readonly ICleaner mCleaner;
+        private readonly ICleaner _cleaner;
 
         public virtual string[] Tokenize(string text)
         {
-            return mCleaner
+            return _cleaner
                 .Clean(text)
-                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         public Tokenizer(ICleaner cleaner)
         {
-            mCleaner = cleaner;
+            _cleaner = cleaner;
         }
     }
 }

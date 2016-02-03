@@ -1,11 +1,10 @@
 ﻿using System.Windows.Media;
-using WordCloudMVVM.Model.Word;
 
-namespace WordCloudMVVM.Model
+namespace WordCloudMVVM.Model.Word
 {
     public class WordStyle : WordFontSize
     {
-        public Color Color { get; private set; }
+        public Color Color { get; }
 
         public WordStyle(string word, int fontSize, Color color) : base(word, fontSize)
         {

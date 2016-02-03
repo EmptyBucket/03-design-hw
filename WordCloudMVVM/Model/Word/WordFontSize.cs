@@ -2,7 +2,7 @@
 {
     public class WordFontSize : Word
     {
-        public int FontSize { get; private set; }
+        public int FontSize { get; }
 
         public WordFontSize(string word, int fontSize) : base(word)
         {

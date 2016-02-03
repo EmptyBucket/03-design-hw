@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using NHunspell;
-using WordCloudMVVM;
+using WordCloudMVVM.Model.Word;
 using WordCloudMVVM.Model.WordParse;
+using WordCloudMVVM.Model.WordParse.Token;
 
 namespace WordCloudTest
 {
     [TestClass]
     public class WordCountParserTest
     {
-        private readonly Hunspell mHunspell;
-        private readonly WordCountParser mParser;
+        private readonly WordCountParser _parser;
 
         public WordCountParserTest()
         {
-            string pathHunspellDict = Path.Combine(Environment.CurrentDirectory, "HunspellDictionary", "ru_RU.dic");
-            string pathHunspellAff = Path.Combine(Environment.CurrentDirectory, "HunspellDictionary", "ru_RU.aff");
-            mHunspell = new Hunspell(pathHunspellAff, pathHunspellDict);
-            var exceptedTokenize = new string[]
+            var exceptedTokenize = new[]
             {
                 "свойственный",
                 "состаревшемуся",
@@ -31,18 +26,18 @@ namespace WordCloudTest
                 "пря",
                 "двор"
             };
-            ITokenizer stemTokenizer = Mock.Of<ITokenizer>(tokenizer => tokenizer.Tokenize(It.IsAny<string>()) == exceptedTokenize);
+            var stemTokenizer = Mock.Of<ITokenizer>(tokenizer => tokenizer.Tokenize(It.IsAny<string>()) == exceptedTokenize);
 
-            mParser = new WordCountParser(stemTokenizer);
+            _parser = new WordCountParser(stemTokenizer);
         }
 
         [TestMethod]
         public void TextNewLineWord_Parse_CorrectEnumWordWeight()
         {
-            string newLine = Environment.NewLine;
+            var newLine = Environment.NewLine;
             string textNewLineWord = $"свойственны{newLine}состаревшемуся{newLine}дворе{newLine}свете{newLine}и{newLine}при{newLine}дворе";
 
-            var wordWeightEnum = mParser.Parse(textNewLineWord);
+            var wordWeightEnum = _parser.Parse(textNewLineWord);
             var except = new WordWeight("свойственный", 1);
             var actual = wordWeightEnum.First(wordWeight => wordWeight.Say == "свойственный");
             Assert.AreEqual(except.Say, actual.Say);
@@ -60,28 +55,28 @@ namespace WordCloudTest
         [TestMethod]
         public void TextNewLineWord_Parse_CorrectCoutElement()
         {
-            string newLine = Environment.NewLine;
+            var newLine = Environment.NewLine;
             string textNewLineWord = $"свойственны{newLine}состаревшемуся{newLine}дворе{newLine}свете{newLine}и{newLine}при{newLine}дворе";
-            var wordWeightEnum = mParser.Parse(textNewLineWord);
-            var actualCount = wordWeightEnum.Count();
+            var wordWeightEnum = _parser.Parse(textNewLineWord);
+            var actualCount = wordWeightEnum.Length;
             Assert.AreEqual(6, actualCount);
         }
 
         [TestMethod]
         public void TextLiterature_Parse_CorrectCoutElement()
         {
-            string literText = $"которые,./[]  свойственны 1234567890-=<>?:  ;',.состаревшемуся  @&%(дворе  свете !@#$%^&*( + )()!и  при  дворе";
+            const string literText = "которые,./[]  свойственны 1234567890-=<>?:  ;\',.состаревшемуся  @&%(дворе  свете !@#$%^&*( + )()!и  при  дворе";
 
-            var wordWeightEnum = mParser.Parse(literText);
-            var actualCount = wordWeightEnum.Count();
+            var wordWeightEnum = _parser.Parse(literText);
+            var actualCount = wordWeightEnum.Length;
             Assert.AreEqual(6, actualCount);
         }
 
         [TestMethod]
         public void TextLiterature_Parse_CorrectEnumWordWeight()
         {
-            string literText = $"которые,./[]  свойственны 1234567890-=<>?:  ;',.состаревшемуся  @&%(дворе  свете !@#$%^&*( + )()!и  при  дворе";
-            var wordWeightEnum = mParser.Parse(literText);
+            const string literText = "которые,./[]  свойственны 1234567890-=<>?:  ;\',.состаревшемуся  @&%(дворе  свете !@#$%^&*( + )()!и  при  дворе";
+            var wordWeightEnum = _parser.Parse(literText);
             var except = new WordWeight("свойственный", 1);
             var actual = wordWeightEnum.First(wordWeight => wordWeight.Say == "свойственный");
             Assert.AreEqual(except.Say, actual.Say);
@@ -99,9 +94,9 @@ namespace WordCloudTest
         [TestMethod]
         public void Text_GetUniqueWord_UniqueWord()
         {
-            string[] text = new[] { "свойственны", "дворе", "свойственны", "дворе", "свойственны" };
-            HashSet<string> exceptUniqueWord = new HashSet<string> { "дворе", "свойственны" };
-            HashSet<string> actualUniqueWord = mParser.GetAllUniqueWords(text);
+            var text = new[] { "свойственны", "дворе", "свойственны", "дворе", "свойственны" };
+            var exceptUniqueWord = new HashSet<string> { "дворе", "свойственны" };
+            var actualUniqueWord = _parser.GetAllUniqueWords(text);
             Assert.IsTrue(exceptUniqueWord.All(word => actualUniqueWord.Contains(word)));
             Assert.AreEqual(actualUniqueWord.Count, exceptUniqueWord.Count);
         }

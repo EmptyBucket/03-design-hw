@@ -3,36 +3,37 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using WordCloudMVVM.Model.Cloud.BuildCloud.Intersection;
+using WordCloudMVVM.Model.Word;
 
 namespace WordCloudMVVM.Model.Cloud.BuildCloud
 {
     public class LineCloudBuilder : ICloudBuilder
     {
-        private readonly IIntersectionChecker mIntersectionChecher;
+        private readonly IIntersectionChecker _intersectionChecher;
 
         public LineCloudBuilder(IIntersectionChecker intersectionChecher)
         {
-            mIntersectionChecher = intersectionChecher;
+            _intersectionChecher = intersectionChecher;
         }
 
         public Dictionary<WordStyle, Geometry> BuildWordsGeometry(IReadOnlyCollection<WordStyle> words, int imageWidth, int imageHeight, int maxFont)
         {
             var sortWords = words.OrderByDescending(word => word.FontSize);
 
-            Dictionary<WordStyle, Geometry> geometryWords = new Dictionary<WordStyle, Geometry>();
+            var geometryWords = new Dictionary<WordStyle, Geometry>();
 
-            using (IEnumerator<WordStyle> enumeratorWords = sortWords.GetEnumerator())
+            using (var enumeratorWords = sortWords.GetEnumerator())
             {
-                List<Geometry> prewLineGeometry = new List<Geometry>();
+                var prewLineGeometry = new List<Geometry>();
                 for (double coordY = 0; coordY < imageHeight;)
                 {
-                    List<Geometry> currentLineGeometry = new List<Geometry>();
+                    var currentLineGeometry = new List<Geometry>();
                     for (double coordX = 0; coordX < imageWidth && enumeratorWords.MoveNext();)
                     {
-                        WordStyle word = enumeratorWords.Current;
-                        Geometry geometryWord = GeometryExtended.GetWordGeometry(word, new Point(coordX, coordY));
+                        var word = enumeratorWords.Current;
+                        var geometryWord = GeometryExtended.GetWordGeometry(word, new Point(coordX, coordY));
 
-                        for (double offset = 1; mIntersectionChecher.CheckIntersection(geometryWord, prewLineGeometry); offset++)
+                        for (double offset = 1; _intersectionChecher.CheckIntersection(geometryWord, prewLineGeometry); offset++)
                             geometryWord = GeometryExtended.GetWordGeometry(word, new Point(coordX, coordY + offset));
 
                         geometryWords.Add(word, geometryWord);

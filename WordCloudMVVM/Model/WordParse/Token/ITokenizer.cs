@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WordCloudMVVM.Model.WordParse
+﻿namespace WordCloudMVVM.Model.WordParse.Token
 {
     public interface ITokenizer
     {

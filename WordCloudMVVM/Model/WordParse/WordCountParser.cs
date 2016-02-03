@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WordCloudMVVM.Model.WordParse;
+using WordCloudMVVM.Model.Word;
+using WordCloudMVVM.Model.WordParse.Token;
 
-namespace WordCloudMVVM
+namespace WordCloudMVVM.Model.WordParse
 {
     public class WordCountParser : IWordWeightParser
     {
-        private readonly ITokenizer mTokenizer;
+        private readonly ITokenizer _tokenizer;
 
         public WordWeight[] Parse(string text)
         {
-            string[] primaryWords = mTokenizer.Tokenize(text).ToArray();
-            HashSet<string> uniquePrimaryWords = GetAllUniqueWords(primaryWords);
+            var primaryWords = _tokenizer.Tokenize(text).ToArray();
+            var uniquePrimaryWords = GetAllUniqueWords(primaryWords);
 
-            Dictionary<string, int> dictCountUniqueWords = uniquePrimaryWords
+            var dictCountUniqueWords = uniquePrimaryWords
                 .ToDictionary(item => item, item => 0);
 
             foreach (var item in primaryWords)
                 dictCountUniqueWords[item]++;
 
             return dictCountUniqueWords
-                .Select(CountWord => new WordWeight(CountWord.Key, CountWord.Value))
+                .Select(countWord => new WordWeight(countWord.Key, countWord.Value))
                 .ToArray();
         }
 
@@ -29,7 +30,7 @@ namespace WordCloudMVVM
 
         public WordCountParser(ITokenizer tokenizer)
         {
-            mTokenizer = tokenizer;
+            _tokenizer = tokenizer;
         }
     }
 }

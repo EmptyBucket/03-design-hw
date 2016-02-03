@@ -9,22 +9,22 @@ namespace WordCloudTest
     [TestClass]
     public class TokenizerTest
     {
-        private readonly Tokenizer mTokenizer;
+        private readonly Tokenizer _tokenizer;
 
         public TokenizerTest()
         {
-            string clearText = "которые свойственны состаревшемуся в свете и при дворе значительному человеку";
-            ICleaner textCleaner = Mock.Of<ICleaner>(cleaner => cleaner.Clean(It.IsAny<string>()) == clearText);
+            const string clearText = "которые свойственны состаревшемуся в свете и при дворе значительному человеку";
+            var textCleaner = Mock.Of<ICleaner>(cleaner => cleaner.Clean(It.IsAny<string>()) == clearText);
 
-            mTokenizer = new Tokenizer(textCleaner);
+            _tokenizer = new Tokenizer(textCleaner);
         }
 
         [TestMethod]
         public void Text_Tokenize_AllWord()
         {
-            string text = "которые,  свойственны  .состаревшемуся  в,  свете  и . при  дворе  ,значительному человеку";
-            var actualWord = mTokenizer.Tokenize(text);
-            string[] exceptWord = new[] { "которые", "свойственны", "состаревшемуся", "в", "свете", "и", "при", "дворе", "значительному", "человеку" };
+            const string text = "которые,  свойственны  .состаревшемуся  в,  свете  и . при  дворе  ,значительному человеку";
+            var actualWord = _tokenizer.Tokenize(text);
+            var exceptWord = new[] { "которые", "свойственны", "состаревшемуся", "в", "свете", "и", "при", "дворе", "значительному", "человеку" };
             Assert.IsTrue(exceptWord.All(word => actualWord.Contains(word)));
         }
     }

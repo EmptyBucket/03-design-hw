@@ -1,6 +1,4 @@
-﻿using WordCloudMVVM.Model.Word;
-
-namespace WordCloudMVVM
+﻿namespace WordCloudMVVM.Model.Word
 {
     public class WordWeight : IWord
     {

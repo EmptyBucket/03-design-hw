@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using Ninject.Modules;
-using WordCloudMVVM.Model;
 using WordCloudMVVM.Model.Cloud.BuildCloud;
 using WordCloudMVVM.Model.Cloud.BuildCloud.Intersection;
+using WordCloudMVVM.Model.Cloud.PaintCloud;
 using WordCloudMVVM.Model.Read;
 using WordCloudMVVM.Model.WordInspector;
 using WordCloudMVVM.Model.WordParse;
 using WordCloudMVVM.Model.WordParse.Clean;
+using WordCloudMVVM.Model.WordParse.Token;
 
 namespace WordCloudMVVM.ViewModel
 {
@@ -15,11 +16,11 @@ namespace WordCloudMVVM.ViewModel
     {
         public override void Load()
         {
-            string pathDicitonaryBadWord = Path.Combine(Environment.CurrentDirectory, "InspectorDictionary", "InspectorDictionary.txt");
-            string pathAffHunspell = Path.Combine(Environment.CurrentDirectory, "HunspellDictionary", "ru_RU.aff");
-            string pathDicionaryHunspell = Path.Combine(Environment.CurrentDirectory, "HunspellDictionary", "ru_RU.dic");
+            var pathDicitonaryBadWord = Path.Combine(Environment.CurrentDirectory, "InspectorDictionary", "InspectorDictionary.txt");
+            var pathAffHunspell = Path.Combine(Environment.CurrentDirectory, "HunspellDictionary", "ru_RU.aff");
+            var pathDicionaryHunspell = Path.Combine(Environment.CurrentDirectory, "HunspellDictionary", "ru_RU.dic");
 
-            Bind<ITextReader>().To<TXTReader>();
+            Bind<ITextReader>().To<TxtReader>();
             Bind<NHunspell.Hunspell>()
                 .ToSelf()
                 .WithConstructorArgument("affFile", pathAffHunspell)

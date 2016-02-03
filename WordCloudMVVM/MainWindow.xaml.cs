@@ -13,7 +13,7 @@ namespace WordCloudMVVM
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
 
-        private void Grid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Grid_ouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             DragMove();
         }
@@ -27,7 +27,7 @@ namespace WordCloudMVVM
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
+            var textBox = (TextBox)sender;
             if (textBox.Text == string.Empty)
                 textBox.Text = "1";
         }
